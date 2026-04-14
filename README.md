@@ -1,100 +1,196 @@
-# WIFI-ZERO
-### Advanced Wireless Disruption & Area-Denial Framework
+# KRYPTON DEAUTH-COMMANDER v2.0
 
-```text
- __       __ _____ ________  __        ________ _______  _______   ______  
-|  \  _  |  \     \        \|  \      |        \       \|       \ /      \ 
-| $$ / \ | $$  \$$| $$$$$$$$ \$$______ \$$$$$$$$ $$$$$$$\ $$$$$$$\  $$$$$$\
-| $$/  $\| $$ |  \| $$__    |  \|      \ /    $$ $$__| $$ $$__| $$ $$  | $$
-| $$  $$$\ $$ | $$| $$  \   | $$ \$$$$$$/  $$$$_ $$    $$ $$    $$ $$  | $$
-| $$ $$\$$\$$ | $$| $$$$$   | $$       |  $$    \$$$$$$$\ $$$$$$$\ $$  | $$
-| $$$$  \$$$$ | $$| $$      | $$       | $$_____| $$  | $$ $$  | $$ $$__/ $$
-| $$$    \$$$ | $$| $$      | $$       | $$     \ $$  | $$ $$  | $$\$$    $$
- \$$      \$$  \$$ \$$       \$$        \$$$$$$$$\$$   \$$\$$   \$$ \$$$$$$ 
-```
+A comprehensive, professional-grade Deauthentication & RF-Disruption Dashboard built entirely in Bash, optimized for Intel BE200/AX211 (iwlwifi) chipsets on Samsung Book 5 Pro 360.
 
----
+## Features
 
-## ⚠️ Disclaimer
-**WIFI-ZERO is an offensive security tool designed STRICTLY for authorized Red-Team engagements, academic research, and wireless penetration testing. Unauthorized deployment against networks you do not own or have explicit permission to test is illegal.**
+### 12-Module Command System
 
----
+1. **Auto-Monitor & MAC Spoof** - Automated monitor mode setup with MAC randomization
+2. **Recon Scan** - Background airodump-ng scanning with CSV output
+3. **Target Selector** - Intelligent target selection from scan results
+4. **Targeted Deauth** - Multi-threaded deauthentication attacks
+5. **MDK4 Chaos** - High-speed disassociation attacks (Intel-optimized)
+6. **Area-Denial** - Nuclear option with full-spectrum attacks
+7. **SSID Overlord** - Beacon flood with 1000+ fake SSIDs
+8. **Sweep-and-Strike** - Systematic rotation attacks
+9. **Channel Lock Guardian** - Watchdog for interface stability
+10. **Karma Rogue AP** - Evil Twin deployment
+11. **Forensic Erasure** - Complete evidence destruction
+12. **Exit & Restore** - Clean system restoration
 
-## 🛠 Modular Architecture Breakdown
+## Requirements
 
-The `WIFI-ZERO` suite utilizes an interconnected 8-module pipeline that dynamically adapts to target environments to ensure maximum disruption while maintaining deep operational persistence.
+### System Dependencies
+- Linux with root privileges
+- Intel BE200/AX211 wireless chipset (iwlwifi driver)
+- Aircrack-ng suite
+- macchanger
+- mdk4
+- iw wireless tools
+- hostapd
+- dnsmasq
 
-*   **Module 1: RF-Environment Engine (Interface Dominance)**
-    Forces your target wireless interface into Monitor Mode while initiating a background watchdog loop. Suppresses `wpa_supplicant` and `NetworkManager` to prevent OS-level interference.
+### Installation
 
-*   **Module 2: Tactical Recon & Target Pinpointing**
-    A `tput` powered UI that leverages `airodump-ng` in the background to capture surrounding RF data. Extracts Access Points based on the highest active client counts (Smart-Targeting).
-
-*   **Module 3: The Black-Out Engine (Multi-Vector Deauth)**
-    The core injection system. Executes destructive `mdk4` floods and multi-threaded `aireplay-ng` injections.
-
-*   **Module 4: The Channel-Lock & Persistence Guardian**
-    Protects injection threads. Enforces "Deep Locking" via `iwconfig` and `systemctl mask` to prevent channel drift. Runs a background Keep-Alive process to instantly resurrect any dropped attack threads.
-
-*   **Module 5: SSID Overlord (Mass Beacon Flooding)**
-    Executes Mass Beacon Floods via `mdk4`. Capable of generating 1000+ random networks to clutter scanners, or dynamically cloning real networks from Module 2's CSV data to cause client confusion.
-
-*   **Module 6: Karma AP (Evil Twin)**
-    Automatically spawns a virtual interface (`mon0_ap`), configures `hostapd` and `dnsmasq`, and broadcasts a rogue access point parallel to your offensive injections.
-
-*   **Module 7: The "Area-Denial" Rotation Loop**
-    A "Sweep-and-Strike" protocol. Sorts all discovered APs by signal strength (RSSI) and systematically rotates targeted `mdk4` disruption across every network within range for total localized area denial. *(Supports simultaneous background SSID cloning).*
-
-*   **Module 8: The Forensic Eraser & Exit Protocol**
-    The Kill-Switch (`Ctrl+C` / `Ctrl+\`). Securely shreds all `/tmp/` logs and CSVs, instantly tears down virtual interfaces, restores original hardware MAC addresses, and unmasks/restarts standard OS networking services.
-
----
-
-## 📦 Dependencies & Installation
-
-WIFI-ZERO operates on native Bash but requires a standard suite of wireless auditing tools to be present on your host.
-
-### Required Packages:
-*   `aircrack-ng` (airodump-ng, aireplay-ng, airmon-ng)
-*   `mdk4`
-*   `macchanger`
-*   `hostapd`
-*   `dnsmasq`
-
-### Deployment:
 ```bash
-git clone https://github.com/your-repo/WIFI-ZERO.git
-cd WIFI-ZERO
-chmod +x deauth_engine.sh
-sudo ./deauth_engine.sh <interface>
+# Install dependencies (Ubuntu/Debian)
+sudo apt update
+sudo apt install aircrack-ng macchanger mdk4 iw hostapd dnsmasq
+
+# Make script executable
+chmod +x krypton-deauth-commander.sh
 ```
 
+## Usage
+
+### Basic Operation
+
+```bash
+# Run as root
+sudo ./krypton-deauth-commander.sh
+```
+
+### Module Workflow
+
+1. **Start with Module 1** - Enable monitor mode and spoof MAC
+2. **Run Module 2** - Scan for targets
+3. **Use Module 3** - Select specific targets
+4. **Choose attack module** (4-10) based on objective
+5. **Module 11** - Clean up evidence when done
+6. **Module 0** - Restore system to original state
+
+### Intel-Specific Optimizations
+
+- **Channel Management**: Uses `iw dev` instead of deprecated methods
+- **Driver Stability**: Self-healing mechanisms for iwlwifi crashes
+- **Injection Optimization**: MDK4 prioritized for Intel chipsets
+- **Frequency Support**: Full 2.4/5/6GHz spectrum coverage
+
+## Safety Features
+
+### Self-Healing
+- Automatic interface recovery on driver crashes
+- Channel drift detection and correction
+- Background process monitoring and restart
+
+### Forensic Protection
+- Complete evidence destruction (Module 11)
+- Secure file shredding with multiple passes
+- Process termination and cleanup
+
+### System Restoration
+- Original MAC address restoration
+- NetworkManager restart
+- Interface mode reset to managed
+
+## Attack Modules Details
+
+### Module 4: Targeted Deauth
+- Multi-threaded injection loops
+- Automatic restart on failure
+- Intel-optimized channel setting
+
+### Module 5: MDK4 Chaos
+- High-speed packet injection
+- Primary attack method for Intel cards
+- Continuous operation with healing
+
+### Module 6: Area-Denial
+- Full spectrum channel hopping
+- 2.4/5/6GHz coverage
+- Broadcast deauthentication
+
+### Module 7: SSID Overlord
+- 1000+ fake SSID generation
+- Beacon flood attack
+- Device Wi-Fi list choking
+
+### Module 10: Karma Rogue AP
+- Evil Twin deployment
+- DHCP server configuration
+- Captive portal capability
+
+## Configuration
+
+### Interface Detection
+Script auto-detects wireless interface using `iw dev`.
+
+### Logging
+- Scan results: `/tmp/scan.csv`
+- Log directory: `/tmp/krypton_logs/`
+- Temporary files: `/tmp/`
+
+### MAC Management
+- Original MAC stored for restoration
+- Random MAC generation with macchanger
+- Automatic restoration on exit
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Monitor Mode Fails**
+   - Check if interface supports monitor mode
+   - Ensure no conflicting processes
+   - Try manual: `iw dev wlan0 set type monitor`
+
+2. **Injection Fails**
+   - Verify chipset supports packet injection
+   - Check driver version compatibility
+   - Use MDK4 (Module 5) for Intel chipsets
+
+3. **Channel Errors**
+   - Use Intel-safe channel setting
+   - Check regulatory domain settings
+   - Verify band support
+
+### Debug Mode
+Enable verbose output by modifying script variables at top of file.
+
+## Legal Disclaimer
+
+This tool is for educational purposes and authorized security testing only. Users are responsible for ensuring compliance with local laws and regulations. Unauthorized wireless network attacks are illegal in most jurisdictions.
+
+## Technical Specifications
+
+### Supported Hardware
+- Intel BE200
+- Intel AX211
+- Intel AX200/210
+- Other iwlwifi-compatible chipsets
+
+### Frequency Bands
+- 2.4GHz: Channels 1-14
+- 5GHz: Channels 36-165
+- 6GHz: Channels 1-225 (where supported)
+
+### Attack Vectors
+- Deauthentication frames
+- Disassociation frames
+- Beacon flooding
+- Evil Twin AP
+- Karma attacks
+
+## Version History
+
+### v2.0
+- Intel BE200/AX211 optimization
+- Self-healing mechanisms
+- Enhanced UI with tput
+- 6GHz band support
+- Improved error handling
+
+### v1.0
+- Basic functionality
+- 12-module system
+- ASCII interface
+
+## Support
+
+For technical support and updates, refer to the documentation and ensure all dependencies are properly installed.
+
 ---
 
-## 🎯 Usage Guide
-
-### The Area-Denial Mode
-When initiating the engine, proceed through the **Recon Phase** to allow the script to capture nearby targets. Once complete, select **Attack Vector D**.
-The Area-Denial loop will sort the targets by RSSI (closest first). You will be prompted:
-`Enable simultaneous SSID Overlord (Mass Beacon Flood) during rotation? [y/N]`
-Selecting `Y` will run a simultaneous cloned beacon flood in the background while the main thread systematically locks onto each channel and injects deauthentication packets for 30 seconds before moving to the next.
-
-### The Nuclear Option
-Select **Nuclear Option** from the execution menu. This does not require prior recon. The engine will rapidly hop across 23 standard 2.4GHz and 5GHz channels, firing 50 broadcast deauth packets per second on every frequency.
-
-### The Kill-Switch
-At any point during the operation, press `Ctrl+C` or `Ctrl+\`. The Forensic Eraser (Module 8) will instantly intercept the signal, kill all rogue APs, stop injection threads, shred capture data, and restore your interface.
-
----
-
-## 📡 Hardware Compatibility
-
-For `WIFI-ZERO` to function correctly, your wireless network adapter **MUST** support Monitor Mode and Packet Injection.
-
-**Recommended Chipsets:**
-*   **Atheros** (AR9271, AR9287) - *Highly Recommended*
-*   **Ralink** (RT3070, RT5370)
-*   **Realtek** (RTL8812AU) - *Requires specific patched driver for stable injection*
-*   **Intel** (BE200/AX211/iwlwifi) - *Supported, but often struggles with simultaneous AP and Monitor modes (Karma AP).*
-
-*Note: While Module 6 (Karma AP) attempts to spin up a secondary virtual interface using `iw dev interface add`, some chipsets/drivers (specifically Intel iwlwifi) cannot simultaneously support AP and Monitor mode. If Evil Twin fails to broadcast, use a secondary physical USB adapter.*
+**KRYPTON DEAUTH-COMMANDER v2.0** - Professional RF Security Testing Platform
+"# shut-up" 
