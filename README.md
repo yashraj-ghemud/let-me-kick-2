@@ -95,5 +95,6 @@ For `WIFI-ZERO` to function correctly, your wireless network adapter **MUST** su
 *   **Atheros** (AR9271, AR9287) - *Highly Recommended*
 *   **Ralink** (RT3070, RT5370)
 *   **Realtek** (RTL8812AU) - *Requires specific patched driver for stable injection*
+*   **Intel** (BE200/AX211/iwlwifi) - *Supported, but often struggles with simultaneous AP and Monitor modes (Karma AP).*
 
-*Note: While Module 6 (Karma AP) attempts to spin up a secondary virtual interface using `iw dev interface add`, some chipsets/drivers cannot simultaneously support AP and Monitor mode. If Evil Twin fails to broadcast, use a secondary physical USB adapter.*"# let-me-kick-2" 
+*Note: While Module 6 (Karma AP) attempts to spin up a secondary virtual interface using `iw dev interface add`, some chipsets/drivers (specifically Intel iwlwifi) cannot simultaneously support AP and Monitor mode. If Evil Twin fails to broadcast, use a secondary physical USB adapter.*
